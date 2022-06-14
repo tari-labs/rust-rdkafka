@@ -105,7 +105,7 @@ impl<'a> MessageStream<'a> {
         }
     }
 
-    fn poll(&self) -> Option<KafkaResult<BorrowedMessage<'a>>> {
+    pub fn poll(&self) -> Option<KafkaResult<BorrowedMessage<'a>>> {
         unsafe {
             NativePtr::from_ptr(rdsys::rd_kafka_consume_queue(self.queue.ptr(), 0))
                 .map(|p| BorrowedMessage::from_consumer(p, self.queue))
